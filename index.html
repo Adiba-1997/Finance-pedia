@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinancePedia - Financial Terms & Calculators</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--light);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Highlight Sections */
+        .highlight {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight h3 {
+            margin-bottom: 10px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+        
+        .highlight h3 i {
+            margin-right: 10px;
+        }
+        
+        /* Search Bar */
+        .search-container {
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        #search-input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+            padding-left: 45px;
+            backdrop-filter: blur(5px);
+        }
+        
+        #search-input:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+        }
+        
+        /* Ad Blocks */
+        .ad-block {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            color: white;
+            border: 1px dashed rgba(255,255,255,0.3);
+        }
+        
+        .ad-block p {
+            margin-bottom: 10px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr 300px;
+            }
+        }
+        
+        /* Section Styles */
+        section {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+        }
+        
+        /* Alphabet Navigation */
+        .alphabet-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .alphabet-nav a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .alphabet-nav a:hover, .alphabet-nav a.active {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Terms List */
+        .terms-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        @media (min-width: 600px) {
+            .terms-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 900px) {
+            .terms-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .term-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .term-card:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .term-card h3 {
+            color: white;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .term-card h3 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .term-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        /* Calculator Styles */
+        .calculator {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .calculator h3 {
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .calculator h3 i {
+            margin-right: 10px;
+            color: var(--success);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            width: 100%;
+        }
+        
+        button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .result h4 {
+            margin-bottom: 10px;
+            color: var(--success);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .sidebar {
+                display: block;
+            }
+        }
+        
+        .popular-terms, .quick-calculators {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .popular-terms h3, .quick-calculators h3 {
+            margin-bottom: 15px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .popular-list {
+            list-style-type: none;
+        }
+        
+        .popular-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+        }
+        
+        .popular-list a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .popular-list a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .popular-list i {
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .quick-calc-btn {
+            display: block;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-calc-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        /* Tabs for Calculators */
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 10px 15px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .tab-btn.active {
+            color: var(--accent);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Tooltip for important terms */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--accent);
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: rgba(0,0,0,0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-coins"></i> FinancePedia
+            </div>
+            <div class="tagline">
+                Your A-Z Guide to Financial Terms & Useful Calculators
+            </div>
+        </header>
+        
+        <nav>
+            <a href="#terms"><i class="fas fa-book"></i> Financial Terms</a>
+            <a href="#calculators"><i class="fas fa-calculator"></i> Calculators</a>
+            <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+        
+        <!-- Highlight Section for Financial Terms -->
+        <div class="highlight">
+            <h3><i class="fas fa-star"></i> Featured Financial Terms</h3>
+            <p>Explore our comprehensive A-Z glossary of financial terminology with detailed explanations and examples.</p>
+        </div>
+        
+        <!-- Top Ad Block -->
+        <div class="ad-block">
+            <p>Advertisement</p>
+            <div style="height: 90px; background-color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 5px;">
+                AdSense Block
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="content">
+                <section id="terms">
+                    <h2><i class="fas fa-book-open"></i> Financial Terms A-Z</h2>
+                    
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="search-input" placeholder="Search financial terms...">
+                    </div>
+                    
+                    <div class="alphabet-nav">
+                        <a href="#A">A</a>
+                        <a href="#B">B</a>
+                        <a href="#C">C</a>
+                        <a href="#D">D</a>
+                        <a href="#E">E</a>
+                        <a href="#F">F</a>
+                        <a href="#G">G</a>
+                        <a href="#H">H</a>
+                        <a href="#I">I</a>
+                        <a href="#J">J</a>
+                        <a href="#K">K</a>
+                        <a href="#L">L</a>
+                        <a href="#M">M</a>
+                        <a href="#N">N</a>
+                        <a href="#O">O</a>
+                        <a href="#P">P</a>
+                        <a href="#Q">Q</a>
+                        <a href="#R">R</a>
+                        <a href="#S">S</a>
+                        <a href="#T">T</a>
+                        <a href="#U">U</a>
+                        <a href="#V">V</a>
+                        <a href="#W">W</a>
+                        <a href="#X">X</a>
+                        <a href="#Y">Y</a>
+                        <a href="#Z">Z</a>
+                    </div>
+                    
+                    <div class="no-results" id="no-results">
+                        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                        <h3>No results found</h3>
+                        <p>Try searching for a different term</p>
+                    </div>
+                    
+                    <div class="terms-list" id="terms-list">
+                        <!-- A Terms -->
+                        <div class="term-card" id="A" data-term="apr" data-definition="Annual Percentage Rate">
+                            <h3><i class="fas fa-dollar-sign"></i> APR</h3>
+                            <p>Annual Percentage Rate - The annual rate charged for borrowing or earned through an investment, including fees.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="assets" data-definition="Resources with economic value">
+                            <h3><i class="fas fa-chart-line"></i> Assets</h3>
+                            <p>Resources with economic value that an individual or corporation owns or controls with the expectation of future benefit.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="amortization" data-definition="Spreading out a loan into fixed payments">
+                            <h3><i class="fas fa-balance-scale"></i> Amortization</h3>
+                            <p>The process of spreading out a loan into a series of fixed payments over time.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="annuity" data-definition="Financial product paying fixed payments">
+                            <h3><i class="fas fa-money-bill-wave"></i> Annuity</h3>
+                            <p>A financial product that pays out fixed payments to an individual, typically used as retirement income.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="arbitrage" data-definition="Profiting from price differences">
+                            <h3><i class="fas fa-exchange-alt"></i> Arbitrage</h3>
+                            <p>The simultaneous purchase and sale of an asset to profit from a difference in the price.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="appreciation" data-definition="Increase in asset value">
+                            <h3><i class="fas fa-arrow-up"></i> Appreciation</h3>
+                            <p>An increase in the value of an asset over time.</p>
+                        </div>
+                        
+                        <!-- B Terms -->
+                        <div class="term-card" id="B" data-term="bankruptcy" data-definition="Legal proceeding for debt repayment">
+                            <h3><i class="fas fa-piggy-bank"></i> Bankruptcy</h3>
+                            <p>A legal proceeding involving a person or business that is unable to repay outstanding debts.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="bear market" data-definition="Market condition with falling prices">
+                            <h3><i class="fas fa-percentage"></i> Bear Market</h3>
+                            <p>A market condition in which prices are falling, encouraging selling.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="balance sheet" data-definition="Financial statement of assets and liabilities">
+                            <h3><i class="fas fa-file-invoice-dollar"></i> Balance Sheet</h3>
+                            <p>A financial statement that reports a company's assets, liabilities and shareholders' equity at a specific point in time.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="bull market" data-definition="Market condition with rising prices">
+                            <h3><i class="fas fa-chart-line"></i> Bull Market</h3>
+                            <p>A market condition in which prices are rising or expected to rise.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="bond" data-definition="Fixed income investment">
+                            <h3><i class="fas fa-hand-holding-usd"></i> Bond</h3>
+                            <p>A fixed income instrument that represents a loan made by an investor to a borrower.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="blue chip" data-definition="Large, stable, well-established company">
+                            <h3><i class="fas fa-chess-queen"></i> Blue Chip</h3>
+                            <p>A nationally recognized, well-established, and financially sound company.</p>
+                        </div>
+                        
+                        <!-- C Terms -->
+                        <div class="term-card" id="C" data-term="credit score" data-definition="Numerical expression of creditworthiness">
+                            <h3><i class="fas fa-credit-card"></i> Credit Score</h3>
+                            <p>A number between 300-850 that depicts a consumer's creditworthiness based on their credit history.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="compound interest" data-definition="Interest on initial principal and accumulated interest">
+                            <h3><i class="fas fa-money-bill-wave"></i> Compound Interest</h3>
+                            <p>Interest calculated on the initial principal and also on the accumulated interest of previous periods.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="capital gains" data-definition="Profit from sale of property or investment">
+                            <h3><i class="fas fa-hand-holding-usd"></i> Capital Gains</h3>
+                            <p>The profit from the sale of property or an investment, calculated by subtracting the purchase price from the sale price.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="collateral" data-definition="Asset pledged to secure a loan">
+                            <h3><i class="fas fa-home"></i> Collateral</h3>
+                            <p>An asset that a borrower offers as a way for a lender to secure the loan.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="cash flow" data-definition="Net amount of cash moving in and out">
+                            <h3><i class="fas fa-money-bill-alt"></i> Cash Flow</h3>
+                            <p>The net amount of cash and cash-equivalents moving into and out of a business.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="commodity" data-definition="Basic good used in commerce">
+                            <h3><i class="fas fa-gas-pump"></i> Commodity</h3>
+                            <p>A basic good used in commerce that is interchangeable with other goods of the same type.</p>
+                        </div>
+                        
+                        <!-- D Terms -->
+                        <div class="term-card" id="D" data-term="dividend" data-definition="Distribution of company earnings">
+                            <h3><i class="fas fa-file-invoice"></i> Dividend</h3>
+                            <p>A distribution of a portion of a company's earnings, decided by the board of directors, to a class of its shareholders.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="diversification" data-definition="Risk management strategy">
+                            <h3><i class="fas fa-chart-bar"></i> Diversification</h3>
+                            <p>A risk management strategy that mixes a wide variety of investments within a portfolio.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="debt-to-income ratio" data-definition="Personal finance measure">
+                            <h3><i class="fas fa-file-contract"></i> Debt-to-Income Ratio</h3>
+                            <p>A personal finance measure that compares an individual's debt payment to their overall income.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="depreciation" data-definition="Decrease in asset value">
+                            <h3><i class="fas fa-arrow-down"></i> Depreciation</h3>
+                            <p>A decrease in the value of an asset over time due to wear and tear or obsolescence.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="derivative" data-definition="Financial contract deriving value from underlying assets">
+                            <h3><i class="fas fa-project-diagram"></i> Derivative</h3>
+                            <p>A financial security with a value that is reliant upon or derived from an underlying asset or group of assets.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="default" data-definition="Failure to repay a loan">
+                            <h3><i class="fas fa-exclamation-triangle"></i> Default</h3>
+                            <p>The failure to repay a debt including interest or principal on a loan or security.</p>
+                        </div>
+                        
+                        <!-- E Terms -->
+                        <div class="term-card" id="E" data-term="equity" data-definition="Value of asset minus liabilities">
+                            <h3><i class="fas fa-home"></i> Equity</h3>
+                            <p>The value of an asset minus the value of all liabilities on that asset.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="exchange rate" data-definition="Value of one currency for conversion">
+                            <h3><i class="fas fa-exchange-alt"></i> Exchange Rate</h3>
+                            <p>The value of one currency for the purpose of conversion to another.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="etf" data-definition="Exchange-Traded Fund">
+                            <h3><i class="fas fa-briefcase"></i> ETF</h3>
+                            <p>Exchange-Traded Fund - A type of security that tracks an index, sector, commodity, or other asset but trades like a stock.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="escrow" data-definition="Financial arrangement with third party">
+                            <h3><i class="fas fa-lock"></i> Escrow</h3>
+                            <p>A financial arrangement where a third party holds and regulates payment of funds for two parties in a transaction.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="earnings per share" data-definition="Company profit divided by shares">
+                            <h3><i class="fas fa-calculator"></i> Earnings Per Share (EPS)</h3>
+                            <p>A company's profit divided by the number of outstanding shares of its common stock.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="expense ratio" data-definition="Annual fund operating expenses">
+                            <h3><i class="fas fa-percent"></i> Expense Ratio</h3>
+                            <p>The annual fee that all funds or ETFs charge their shareholders.</p>
+                        </div>
+                        
+                        <!-- F Terms -->
+                        <div class="term-card" id="F" data-term="fiscal year" data-definition="Company's accounting year">
+                            <h3><i class="fas fa-calendar-alt"></i> Fiscal Year</h3>
+                            <p>A one-year period that companies and governments use for financial reporting and budgeting.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="fiat currency" data-definition="Government-issued currency">
+                            <h3><i class="fas fa-money-bill"></i> Fiat Currency</h3>
+                            <p>Government-issued currency that is not backed by a physical commodity but by the government that issued it.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="foreclosure" data-definition="Legal process to take possession of property">
+                            <h3><i class="fas fa-home"></i> Foreclosure</h3>
+                            <p>A legal process by which a lender attempts to recover the balance of a loan from a borrower who has stopped making payments.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="futures" data-definition="Financial contract to buy/sell assets">
+                            <h3><i class="fas fa-chart-line"></i> Futures</h3>
+                            <p>Financial contracts obligating the buyer to purchase an asset or the seller to sell an asset at a predetermined future date and price.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="fixed income" data-definition="Investments paying fixed returns">
+                            <h3><i class="fas fa-hand-holding-usd"></i> Fixed Income</h3>
+                            <p>A type of investment that provides a return in the form of fixed periodic payments and eventual return of principal.</p>
+                        </div>
+                        
+                        <div class="term-card" data-term="float" data-definition="Shares available for trading">
+                            <h3><i class="fas fa-water"></i> Float</h3>
+                            <p>The number of shares of a company's stock that are available for trading by the public.</p>
+                        </div>
+                        
+                        <!-- More terms would continue through the alphabet -->
+                    </div>
+                </section>
+                
+                <!-- Middle Ad Block -->
+                <div class="ad-block">
+                    <p>Advertisement</p>
+                    <div style="height: 250px; background-color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 5px;">
+                        AdSense Block
+                    </div>
+                </div>
+                
+                <!-- Highlight Section for Calculators -->
+                <div class="highlight">
+                    <h3><i class="fas fa-calculator"></i> Featured Financial Calculators</h3>
+                    <p>Use our interactive tools to calculate loan payments, investment growth, retirement savings, and more.</p>
+                </div>
+                
+                <section id="calculators">
+                    <h2><i class="fas fa-calculator"></i> Financial Calculators</h2>
+                    
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="mortgage">Mortgage</button>
+                        <button class="tab-btn" data-tab="compound">Compound Interest</button>
+                        <button class="tab-btn" data-tab="loan">Loan Payment</button>
+                        <button class="tab-btn" data-tab="retirement">Retirement</button>
+                        <button class="tab-btn" data-tab="cagr">CAGR</button>
+                        <button class="tab-btn" data-tab="reverse-cagr">Reverse CAGR</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="mortgage-tab">
+                        <div class="calculator">
+                            <h3><i class="fas fa-home"></i> Mortgage Calculator</h3>
+                            <form id="mortgage-form">
+                                <div class="form-group">
+                                    <label for="loan-amount">Loan Amount ($)</label>
+                                    <input type="number" id="loan-amount" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="interest-rate">Interest Rate (%)</label>
+                                    <input type="number" id="interest-rate" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loan-term">Loan Term (years)</label>
+                                    <input type="number" id="loan-term" required>
+                                </div>
+                                <button type="submit">Calculate</button>
+                            </form>
+                            <div class="result" id="mortgage-result">
+                                <h4>Monthly Payment: <span id="monthly-payment"></span></h4>
+                                <p>Total Payment: <span id="total-payment"></span></p>
+                                <p>Total Interest: <span id="total-interest"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="compound-tab">
+                        <div class="calculator">
+                            <h3><i class="fas fa-money-bill-wave"></i> Compound Interest Calculator</h3>
+                            <form id="compound-interest-form">
+                                <div class="form-group">
+                                    <label for="principal">Principal Amount ($)</label>
+                                    <input type="number" id="principal" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rate">Annual Interest Rate (%)</label>
+                                    <input type="number" id="rate" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time">Time Period (years)</label>
+                                    <input type="number" id="time" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="compounding">Compounding Frequency</label>
+                                    <select id="compounding" required>
+                                        <option value="1">Annually</option>
+                                        <option value="2">Semi-annually</option>
+                                        <option value="4">Quarterly</option>
+                                        <option value="12" selected>Monthly</option>
+                                        <option value="365">Daily</option>
+                                    </select>
+                                </div>
+                                <button type="submit">Calculate</button>
+                            </form>
+                            <div class="result" id="compound-result">
+                                <h4>Future Value: <span id="future-value"></span></h4>
+                                <p>Total Interest Earned: <span id="interest-earned"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="loan-tab">
+                        <div class="calculator">
+                            <h3><i class="fas fa-credit-card"></i> Loan Payment Calculator</h3>
+                            <form id="loan-form">
+                                <div class="form-group">
+                                    <label for="loan-amount2">Loan Amount ($)</label>
+                                    <input type="number" id="loan-amount2" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="interest-rate2">Interest Rate (%)</label>
+                                    <input type="number" id="interest-rate2" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loan-term2">Loan Term (months)</label>
+                                    <input type="number" id="loan-term2" required>
+                                </div>
+                                <button type="submit">Calculate</button>
+                            </form>
+                            <div class="result" id="loan-result">
+                                <h4>Monthly Payment: <span id="monthly-payment2"></span></h4>
+                                <p>Total Payment: <span id="total-payment2"></span></p>
+                                <p>Total Interest: <span id="total-interest2"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="retirement-tab">
+                        <div class="calculator">
+                            <h3><i class="fas fa-piggy-bank"></i> Retirement Savings Calculator</h3>
+                            <form id="retirement-form">
+                                <div class="form-group">
+                                    <label for="current-age">Current Age</label>
+                                    <input type="number" id="current-age" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="retirement-age">Retirement Age</label>
+                                    <input type="number" id="retirement-age" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="current-savings">Current Savings ($)</label>
+                                    <input type="number" id="current-savings" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="monthly-contribution">Monthly Contribution ($)</label>
+                                    <input type="number" id="monthly-contribution" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expected-return">Expected Annual Return (%)</label>
+                                    <input type="number" id="expected-return" step="0.01" required>
+                                </div>
+                                <button type="submit">Calculate</button>
+                            </form>
+                            <div class="result" id="retirement-result">
+                                <h4>Retirement Savings: <span id="retirement-savings"></span></h4>
+                                <p>Total Contributions: <span id="total-contributions"></span></p>
+                                <p>Interest Earned: <span id="retirement-interest"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="cagr-tab">
+                        <div class="calculator">
+                            <h3><i class="fas fa-chart-line"></i> CAGR Calculator <span class="tooltip">(Compound Annual Growth Rate)<span class="tooltiptext">The year-over-year growth rate of an investment over a specified period</span></span></h3>
+                            <form id="cagr-form">
+                                <div class="form-group">
+                                    <label for="beginning-value">Beginning Value ($)</label>
+                                    <input type="number" id="beginning-value" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ending-value">Ending Value ($)</label>
+                                    <input type="number" id="ending-value" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="years">Number of Years</label>
+                                    <input type="number" id="years" required>
+                                </div>
+                                <button type="submit">Calculate CAGR</button>
+                            </form>
+                            <div class="result" id="cagr-result">
+                                <h4>CAGR: <span id="cagr-value"></span></h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="reverse-cagr-tab">
+                        <div class="calculator">
+                            <h3><i class="fas fa-chart-line"></i> Reverse CAGR Calculator</h3>
+                            <form id="reverse-cagr-form">
+                                <div class="form-group">
+                                    <label for="beginning-value-reverse">Beginning Value ($)</label>
+                                    <input type="number" id="beginning-value-reverse" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cagr-rate">Expected CAGR (%)</label>
+                                    <input type="number" id="cagr-rate" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="years-reverse">Number of Years</label>
+                                    <input type="number" id="years-reverse" required>
+                                </div>
+                                <button type="submit">Calculate Future Value</button>
+                            </form>
+                            <div class="result" id="reverse-cagr-result">
+                                <h4>Projected Future Value: <span id="future-value-reverse"></span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="sidebar">
+                <div class="popular-terms">
+                    <h3><i class="fas fa-fire"></i> Popular Terms</h3>
+                    <ul class="popular-list">
+                        <li><a href="#compound-interest"><i class="fas fa-arrow-right"></i> Compound Interest</a></li>
+                        <li><a href="#credit-score"><i class="fas fa-arrow-right"></i> Credit Score</a></li>
+                        <li><a href="#cagr"><i class="fas fa-arrow-right"></i> CAGR</a></li>
+                        <li><a href="#401k"><i class="fas fa-arrow-right"></i> 401(k)</a></li>
+                        <li><a href="#liquidity"><i class="fas fa-arrow-right"></i> Liquidity</a></li>
+                        <li><a href="#bull-market"><i class="fas fa-arrow-right"></i> Bull Market</a></li>
+                        <li><a href="#capital-gains"><i class="fas fa-arrow-right"></i> Capital Gains</a></li>
+                        <li><a href="#etf"><i class="fas fa-arrow-right"></i> ETF</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sidebar Ad Block -->
+                <div class="ad-block">
+                    <p>Advertisement</p>
+                    <div style="height: 250px; background-color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 5px;">
+                        AdSense Block
+                    </div>
+                </div>
+                
+                <div class="quick-calculators">
+                    <h3><i class="fas fa-bolt"></i> Quick Calculators</h3>
+                    <a href="#mortgage-tab" class="quick-calc-btn" data-tab="mortgage"><i class="fas fa-home"></i> Mortgage</a>
+                    <a href="#compound-tab" class="quick-calc-btn" data-tab="compound"><i class="fas fa-chart-line"></i> Compound Interest</a>
+                    <a href="#cagr-tab" class="quick-calc-btn" data-tab="cagr"><i class="fas fa-percentage"></i> CAGR</a>
+                    <a href="#reverse-cagr-tab" class="quick-calc-btn" data-tab="reverse-cagr"><i class="fas fa-undo"></i> Reverse CAGR</a>
+                    <a href="#loan-tab" class="quick-calc-btn" data-tab="loan"><i class="fas fa-credit-card"></i> Loan Payment</a>
+                    <a href="#retirement-tab" class="quick-calc-btn" data-tab="retirement"><i class="fas fa-piggy-bank"></i> Retirement</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Block -->
+        <div class="ad-block">
+            <p>Advertisement</p>
+            <div style="height: 90px; background-color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 5px;">
+                AdSense Block
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>FinancePedia &copy; 2023 - Your Complete Financial Guide</p>
+        <p>Disclaimer: The information provided on this website is for educational purposes only.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+    
+    <script>
+        // Mortgage Calculator
+        document.getElementById('mortgage-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) / 100 / 12;
+            const loanTerm = parseFloat(document.getElementById('loan-term').value) * 12;
+            
+            const x = Math.pow(1 + interestRate, loanTerm);
+            const monthlyPayment = (loanAmount * x * interestRate) / (x - 1);
+            const totalPayment = monthlyPayment * loanTerm;
+            const totalInterest = totalPayment - loanAmount;
+            
+            document.getElementById('monthly-payment').textContent = '$' + monthlyPayment.toFixed(2);
+            document.getElementById('total-payment').textContent = '$' + totalPayment.toFixed(2);
+            document.getElementById('total-interest').textContent = '$' + totalInterest.toFixed(2);
+            
+            document.getElementById('mortgage-result').style.display = 'block';
+        });
+        
+        // Compound Interest Calculator
+        document.getElementById('compound-interest-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const principal = parseFloat(document.getElementById('principal').value);
+            const rate = parseFloat(document.getElementById('rate').value) / 100;
+            const time = parseFloat(document.getElementById('time').value);
+            const compounding = parseInt(document.getElementById('compounding').value);
+            
+            const amount = principal * Math.pow(1 + (rate / compounding), compounding * time);
+            const interest = amount - principal;
+            
+            document.getElementById('future-value').textContent = '$' + amount.toFixed(2);
+            document.getElementById('interest-earned').textContent = '$' + interest.toFixed(2);
+            
+            document.getElementById('compound-result').style.display = 'block';
+        });
+        
+        // Loan Payment Calculator
+        document.getElementById('loan-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const loanAmount = parseFloat(document.getElementById('loan-amount2').value);
+            const interestRate = parseFloat(document.getElementById('interest-rate2').value) / 100 / 12;
+            const loanTerm = parseFloat(document.getElementById('loan-term2').value);
+            
+            const monthlyPayment = (loanAmount * interestRate) / (1 - Math.pow(1 + interestRate, -loanTerm));
+            const totalPayment = monthlyPayment * loanTerm;
+            const totalInterest = totalPayment - loanAmount;
+            
+            document.getElementById('monthly-payment2').textContent = '$' + monthlyPayment.toFixed(2);
+            document.getElementById('total-payment2').textContent = '$' + totalPayment.toFixed(2);
+            document.getElementById('total-interest2').textContent = '$' + totalInterest.toFixed(2);
+            
+            document.getElementById('loan-result').style.display = 'block';
+        });
+        
+        // Retirement Calculator
+        document.getElementById('retirement-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentAge = parseInt(document.getElementById('current-age').value);
+            const retirementAge = parseInt(document.getElementById('retirement-age').value);
+            const currentSavings = parseFloat(document.getElementById('current-savings').value);
+            const monthlyContribution = parseFloat(document.getElementById('monthly-contribution').value);
+            const expectedReturn = parseFloat(document.getElementById('expected-return').value) / 100 / 12;
+            
+            const months = (retirementAge - currentAge) * 12;
+            let futureValue = currentSavings;
+            
+            for (let i = 0; i < months; i++) {
+                futureValue = (futureValue + monthlyContribution) * (1 + expectedReturn);
+            }
+            
+            const totalContributions = currentSavings + (monthlyContribution * months);
+            const interestEarned = futureValue - totalContributions;
+            
+            document.getElementById('retirement-savings').textContent = '$' + futureValue.toFixed(2);
+            document.getElementById('total-contributions').textContent = '$' + totalContributions.toFixed(2);
+            document.getElementById('retirement-interest').textContent = '$' + interestEarned.toFixed(2);
+            
+            document.getElementById('retirement-result').style.display = 'block';
+        });
+        
+        // CAGR Calculator
+        document.getElementById('cagr-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const beginningValue = parseFloat(document.getElementById('beginning-value').value);
+            const endingValue = parseFloat(document.getElementById('ending-value').value);
+            const years = parseFloat(document.getElementById('years').value);
+            
+            const cagr = (Math.pow(endingValue / beginningValue, 1 / years) - 1) * 100;
+            
+            document.getElementById('cagr-value').textContent = cagr.toFixed(2) + '%';
+            document.getElementById('cagr-result').style.display = 'block';
+        });
+        
+        // Reverse CAGR Calculator
+        document.getElementById('reverse-cagr-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const beginningValue = parseFloat(document.getElementById('beginning-value-reverse').value);
+            const cagrRate = parseFloat(document.getElementById('cagr-rate').value) / 100;
+            const years = parseFloat(document.getElementById('years-reverse').value);
+            
+            const futureValue = beginningValue * Math.pow(1 + cagrRate, years);
+            
+            document.getElementById('future-value-reverse').textContent = '$' + futureValue.toFixed(2);
+            document.getElementById('reverse-cagr-result').style.display = 'block';
+        });
+        
+        // Search Functionality
+        document.getElementById('search-input').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const termCards = document.querySelectorAll('.term-card');
+            let hasResults = false;
+            
+            termCards.forEach(card => {
+                const term = card.getAttribute('data-term').toLowerCase();
+                const definition = card.getAttribute('data-definition').toLowerCase();
+                
+                if (term.includes(searchTerm) || definition.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+        });
+        
+        // Tab Functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+        
+        // Quick Calculator Links
+        document.querySelectorAll('.quick-calc-btn').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to corresponding button and content
+                document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+                
+                // Scroll to calculators section
+                document.getElementById('calculators').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
